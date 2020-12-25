@@ -10,20 +10,36 @@ const imgList = [
 function App() {
   const [deg, setDeg] = useState(0);
 
+  const handleCubeClick = (e) => {
+    const halfWidth = window.innerWidth / 2;
+    const clickX = e.clientX;
+    const clickDirection = clickX <= halfWidth ? "left" : "right";
+    switch (clickDirection) {
+      case "left":
+        setDeg(deg + 90);
+        break;
+      case "right":
+      default:
+        setDeg(deg - 90);
+        break;
+    }
+  };
+
   return (
     <>
       <div className='scene'>
         <div
           className='cube'
+          onClick={handleCubeClick}
           style={{
             transform: `translateZ(-100px) rotateY(${deg}deg)`,
           }}
         >
           <div className='cube__face cube__face--front'>
-            <img src={imgList[0]} />
+            <img src={imgList[0]} alt='random' />
           </div>
           <div className='cube__face cube__face--back'>
-            <img src={imgList[1]} />
+            <img src={imgList[1]} alt='random' />
           </div>
           <div
             className='cube__face cube__face--right'
@@ -34,7 +50,7 @@ function App() {
             }}
           >
             <div style={{ transform: "rotateY(180deg)" }}>
-              <img src={imgList[2]} />
+              <img src={imgList[2]} alt='random' />
             </div>
           </div>
           <div
@@ -45,35 +61,12 @@ function App() {
               }px)`,
             }}
           >
-            <img src={imgList[3]} />
+            <img src={imgList[3]} alt='random' />
           </div>
           {/* <div className='cube__face cube__face--top'>top</div>
           <div className='cube__face cube__face--bottom'>bottom</div> */}
         </div>
       </div>
-      <br />
-      <button
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: 0,
-          transform: "translate(0, -50%)",
-        }}
-        onClick={() => setDeg(deg + 90)}
-      >
-        View Previous
-      </button>
-      <button
-        style={{
-          position: "fixed",
-          top: "50%",
-          right: 0,
-          transform: "translate(0, -50%)",
-        }}
-        onClick={() => setDeg(deg - 90)}
-      >
-        View Next
-      </button>
     </>
   );
 }
