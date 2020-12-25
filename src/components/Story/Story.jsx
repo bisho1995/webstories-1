@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Timer from "./Timer";
 import "./story.scss";
 
 export default function Story({ images }) {
@@ -19,6 +20,7 @@ export default function Story({ images }) {
   };
   return (
     <div className='scene'>
+      <Timer />
       <div
         className='cube'
         onClick={handleCubeClick}
