@@ -21,13 +21,13 @@ export default function Story({ images }) {
         break;
       case "right":
       default:
-        rotateLeft();
+        rotateRight();
         break;
     }
   };
   return (
     <div className='scene'>
-      <Timer onDone={rotateRight} timeout={10000} />
+      <Timer onDone={rotateRight} timeout={10000} key={deg} />
       <div
         className='cube'
         onClick={handleCubeClick}

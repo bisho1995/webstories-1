@@ -7,23 +7,22 @@ export default function Timer({ timeout = 3000, onDone = () => {} }) {
   const [progressPercent, setProgressPercent] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
 
-  console.log({ progressPercent, elapsedTime });
-
   const resetCounters = () => {
     setProgressPercent(0);
     setElapsedTime(0);
   };
 
-  if (progressPercent >= 100) {
-    console.log("reseting");
-    resetCounters();
-    // onDone();
-  }
-
   useEffect(() => {
     const t = setTimeout(() => {
-      setProgressPercent(Math.ceil((elapsedTime * 100) / timeout));
-      setElapsedTime(elapsedTime + REFRESH_INTERVAL);
+      if (progressPercent <= 100) {
+        setProgressPercent(Math.ceil((elapsedTime * 100) / timeout));
+        setElapsedTime(elapsedTime + REFRESH_INTERVAL);
+      }
+      if (progressPercent >= 100) {
+        console.log("reseting");
+        resetCounters();
+        onDone();
+      }
     }, REFRESH_INTERVAL);
 
     return () => clearInterval(t);
@@ -33,6 +32,7 @@ export default function Timer({ timeout = 3000, onDone = () => {} }) {
     setProgressPercent,
     setElapsedTime,
     timeout,
+    onDone,
   ]);
 
   return (
@@ -42,6 +42,7 @@ export default function Timer({ timeout = 3000, onDone = () => {} }) {
           height: "100%",
           background: "rgb(124, 124, 124)",
           width: `${progressPercent}%`,
+          transition: "width 0.1s",
         }}
       ></div>
     </div>
