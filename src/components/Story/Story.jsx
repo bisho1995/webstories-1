@@ -4,23 +4,30 @@ import "./story.scss";
 
 export default function Story({ images }) {
   const [deg, setDeg] = useState(0);
+
+  const rotateRight = () => {
+    setDeg(deg - 90);
+  };
+  const rotateLeft = () => {
+    setDeg(deg + 90);
+  };
   const handleCubeClick = (e) => {
     const halfWidth = window.innerWidth / 2;
     const clickX = e.clientX;
     const clickDirection = clickX <= halfWidth ? "left" : "right";
     switch (clickDirection) {
       case "left":
-        setDeg(deg + 90);
+        rotateLeft();
         break;
       case "right":
       default:
-        setDeg(deg - 90);
+        rotateLeft();
         break;
     }
   };
   return (
     <div className='scene'>
-      <Timer />
+      <Timer onDone={rotateRight} timeout={10000} />
       <div
         className='cube'
         onClick={handleCubeClick}
