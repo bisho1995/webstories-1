@@ -27,7 +27,7 @@ export default function Story({ images }) {
   };
   return (
     <div className='scene'>
-      <Timer onDone={rotateRight} timeout={10000} key={deg} />
+      <Timer onDone={rotateRight} timeout={5000} key={deg} />
       <div
         className='cube'
         onClick={handleCubeClick}
